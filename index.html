@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>#ANTIPEDOFILES</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            z-index: 10;
+        }
+        
+        .title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            background: linear-gradient(45deg, #ff0000, #8b0000, #ff4500);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 
+                0 0 10px #ff0000,
+                0 0 20px #ff0000,
+                0 0 30px #8b0000;
+            animation: titleGlow 2s ease-in-out infinite alternate;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #ccc;
+            opacity: 0.8;
+            letter-spacing: 2px;
+        }
+        
+        .player-container {
+            width: 90%;
+            max-width: 900px;
+            height: 500px;
+            border: 3px solid #ff0000;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 
+                0 0 30px rgba(255, 0, 0, 0.5),
+                0 0 60px rgba(139, 0, 0, 0.3);
+            position: relative;
+            z-index: 5;
+        }
+        
+        #player {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, 
+                rgba(0,0,0,0.8) 0%,
+                transparent 20%,
+                transparent 80%,
+                rgba(0,0,0,0.8) 100%);
+            pointer-events: none;
+            z-index: 6;
+        }
+        
+        .warning {
+            position: fixed;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            font-size: 1rem;
+            color: #ff0000;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            animation: warningBlink 1.5s infinite;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            z-index: 10;
+        }
+        
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #ff0000;
+            border-radius: 50%;
+            animation: particleFloat 5s infinite linear;
+        }
+        
+        .blood-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 0, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(139, 0, 0, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+            animation: bloodPulse 10s ease-in-out infinite;
+            z-index: 2;
+        }
+        
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+            z-index: 10;
+        }
+        
+        .control-btn {
+            padding: 12px 25px;
+            background: rgba(255, 0, 0, 0.2);
+            color: white;
+            border: 2px solid #ff0000;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .control-btn:hover {
+            background: rgba(255, 0, 0, 0.4);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+            transform: scale(1.05);
+        }
+        
+        @keyframes titleGlow {
+            0% {
+                text-shadow: 
+                    0 0 10px #ff0000,
+                    0 0 20px #ff0000,
+                    0 0 30px #8b0000;
+            }
+            100% {
+                text-shadow: 
+                    0 0 15px #ff0000,
+                    0 0 30px #ff0000,
+                    0 0 45px #8b0000;
+            }
+        }
+        
+        @keyframes warningBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes bloodPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.8; }
+        }
+        
+        @media (max-width: 768px) {
+            .player-container {
+                height: 300px;
+                width: 95%;
+            }
+            
+            .title {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="blood-effect"></div>
+    
+    <div class="particles" id="particles"></div>
+    
+    <div class="header">
+        <h1 class="title">#ANTIPEDOFILES</h1>
+        <div class="subtitle">WATCH | LEARN | ACT</div>
+    </div>
+    
+    <div class="player-container">
+        <div id="player"></div>
+        <div class="overlay"></div>
+    </div>
+    
+    <div class="controls">
+        <button class="control-btn" onclick="playVideo()">▶ PLAY</button>
+        <button class="control-btn" onclick="pauseVideo()">⏸ PAUSE</button>
+        <button class="control-btn" onclick="toggleMute()">🔊 VOLUME</button>
+        <button class="control-btn" onclick="fullscreen()">⛶ FULLSCREEN</button>
+    </div>
+    
+    <div class="warning">
+        ⚠ WARNING: THIS CONTENT CONTAINS SENSITIVE MATERIAL ⚠
+    </div>
+
+    <script>
+        // YouTube API
+        let player;
+        
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '100%',
+                width: '100%',
+                videoId: 'mFxM5BT3U3k',
+                playerVars: {
+                    'autoplay': 0,
+                    'controls': 1,
+                    'rel': 0,
+                    'showinfo': 0,
+                    'modestbranding': 1,
+                    'iv_load_policy': 3
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+        
+        function onPlayerReady(event) {
+            console.log('Player ready');
+            createParticles();
+        }
+        
+        function onPlayerStateChange(event) {
+            // Можно добавить реакции на изменение состояния
+        }
+        
+        // Управление
+        function playVideo() {
+            player.playVideo();
+        }
+        
+        function pauseVideo() {
+            player.pauseVideo();
+        }
+        
+        function toggleMute() {
+            if(player.isMuted()) {
+                player.unMute();
+            } else {
+                player.mute();
+            }
+        }
+        
+        function fullscreen() {
+            const container = document.querySelector('.player-container');
+            if (!document.fullscreenElement) {
+                container.requestFullscreen().catch(err => {
+                    console.error(`Error attempting to enable full-screen mode: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+        
+        // Частицы
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.width = Math.random() * 3 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                particle.style.animationDuration = (Math.random() * 5 + 3) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Динамическое изменение заголовка
+        const originalTitle = "#ANTIPEDOFILES";
+        let titleChanged = false;
+        
+        setInterval(() => {
+            if (!titleChanged && Math.random() > 0.7) {
+                document.title = "⛔ " + originalTitle + " ⛔";
+                titleChanged = true;
+                setTimeout(() => {
+                    document.title = originalTitle;
+                    titleChanged = false;
+                }, 1000);
+            }
+        }, 3000);
+        
+        // Эффект при наведении
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            document.querySelector('.blood-effect').style.transform = 
+                `translate(${x * 20 - 10}px, ${y * 20 - 10}px)`;
+        });
+    </script>
+    
+    <!-- YouTube IFrame API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+    
+    <script>
+        // Если API не загрузился
+        setTimeout(() => {
+            if (typeof YT === 'undefined') {
+                document.getElementById('player').innerHTML = `
+                    <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#000;">
+                        <div style="text-align:center;color:#fff;">
+                            <h2 style="color:#ff0000;margin-bottom:20px;">ERROR LOADING PLAYER</h2>
+                            <p>Video: mFxM5BT3U3k</p>
+                            <p style="margin-top:20px;">
+                                <a href="https://www.youtube.com/watch?v=mFxM5BT3U3k" 
+                                   style="color:#ff0000;text-decoration:none;border:2px solid #ff0000;padding:10px 20px;border-radius:5px;">
+                                   WATCH ON YOUTUBE
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                `;
+            }
+        }, 5000);
+    </script>
+</body>
+</html>
